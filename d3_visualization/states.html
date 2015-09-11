@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Network</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+    <style>
+
+    .states {
+      /*fill: #ccc;*/
+      fill: #f0f0f0;
+      stroke: black;
+    }
+
+    .symbol {
+      /*fill: steelblue;*/
+      fill: red;
+      fill-opacity: .8;
+      stroke: #fff;
+      
+    }
+
+    </style>
+</head>
+<body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+        <script src="static/datamaps.usa.min.js"></script>
+        <div id="container" style="position: relative; width: 900px; height: 700px;"></div>
+        <script>
+            var map = new Datamap({
+                element: document.getElementById('container'),
+                fills: {
+                  defaultFill: '#EEEDEE' //any hex, color name or rgb/rgba value
+                },
+                geographyConfig: {
+                  // highlightFillColor: '#CA2221'
+                  highlightFillColor: '#C91B00'
+                },
+                scope: 'usa'
+            });
+
+            map.labels({
+                labelColor: '#8A838B'
+                // labelColor: '#C91B00'
+            });
+        </script>
+        
+</body>
+</html>
+
+<body>

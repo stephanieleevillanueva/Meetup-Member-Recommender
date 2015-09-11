@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meetup-Twitter Recommendation App</title>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+    <script src="static/datamaps.usa.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/app.css">
+    <style>
+      /*#container{
+          margin:0px;  
+      */}
+    </style>
+</head>
+<body>
+  <div id="header">
+    <div class="inline-div">
+      <img src="static/meetup.png" alt="HTML5 Icon" style="width:100px;height:65px; margin: 0px auto 3px 70px;">
+    </div>
+    <div class="inline-div">
+      <form class="form-wrapper cf">
+        <input type="text" placeholder="Enter Name" required>
+        <button type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="container" style="position: absolute; width: 900px; height: 500px; margin: 150px auto 10px -50px;"></div>
+        <script>
+            var map = new Datamap({
+                element: document.getElementById('container'),
+                projection: "mercator",
+                fills: {
+                  defaultFill: '#EEEDEE' //any hex, color name or rgb/rgba value
+                },
+                geographyConfig: {
+                  highlightFillColor: '#d83c3c',
+                  popupTemplate: function(geography, data) { //this function should just return a string
+                    return '<div class="hoverinfo" style="color: black"><strong>' + geography.properties.name + '</strong><br><span style="font-size: 11px"> Members: </span></div>';
+                  },
+                },
+                scope: 'usa'
+            });
+
+            map.labels({
+                labelColor: '#969696'
+            });
+
+            d3.select("svg").append("div")
+              .attr("class", "inline-div")
+              .attr("id", "twitter-div")
+
+            d3.select("#twitter-div").append("rect")       // attach a rectangle
+              .attr("x", 1200)         // position the left of the rectangle
+              .attr("y", 1000)          // position the top of the rectangle
+              .attr("height", 100)    // set the height
+              .attr("width", 200)     // set the width
+              .attr("rx", 10)         // set the x corner curve radius
+              .attr("ry", 10)      // set the y corner curve radius
+              .attr("style", "color:white");
+
+        </script>
+
+</body>
+</html>

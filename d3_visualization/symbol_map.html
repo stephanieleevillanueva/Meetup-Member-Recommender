@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+.states {
+  fill: #ccc;
+  stroke: #fff;
+}
+
+.symbol {
+  fill: steelblue;
+  fill-opacity: .8;
+  stroke: #fff;
+}
+
+</style>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.19/topojson.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+<script>
+
+var width = 960,
+    height = 500;
+
+var radius = d3.scale.sqrt()
+    .domain([0, 1e6])
+    .range([0, 10]);
+
+var path = d3.geo.path();
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+queue()
+    .defer(d3.json, "static/us.json")
+    .defer(d3.json, "static/us-state-centroids.json")
+    .await(ready);
+
+function ready(error, us, centroid) {
+  if (error) throw error;
+
+  svg.append("path")
+      .attr("class", "states")
+      .datum(topojson.feature(us, us.objects.states))
+      .attr("d", path);
+
+  svg.selectAll(".symbol")
+      // .data(centroid.features.sort(function(a, b) { console.log(a); return b.properties.population - a.properties.population; }))
+      .data(centroid.features)
+    .enter().append("path")
+      .attr("class", "symbol")
+      .attr("d", path.pointRadius(function(d) { return radius(d.properties.population); }));
+
+}
+
+</script>
